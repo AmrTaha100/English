@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-<title>Vocabulary Master 5.1</title>
+<title>Vocabulary Master 5.2</title>
 
 <!-- خط واحد يدعم العربي والإنجليزي -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -2126,6 +2126,266 @@ body {
         0 12px 35px rgba(34,211,238,.14);
 }
 
+
+/* =========================================================
+   PRACTICE MODE
+========================================================= */
+
+.mode-cards {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.practice-mode {
+    border-color: rgba(34,211,238,.15);
+    background:
+        linear-gradient(
+            145deg,
+            rgba(8,31,43,.92),
+            rgba(15,23,42,.72)
+        );
+}
+
+.practice-mode .mode-icon {
+    color: #67e8f9;
+    background: rgba(34,211,238,.08);
+    border-color: rgba(34,211,238,.16);
+}
+
+.practice-mode:hover {
+    border-color: rgba(103,232,249,.35);
+}
+
+.icon-practice {
+    color: #67e8f9;
+    background: rgba(34,211,238,.08);
+    border-color: rgba(34,211,238,.16);
+}
+
+.practice-screen {
+    display: none;
+    min-height: 100vh;
+    padding: 28px;
+}
+
+.practice-container {
+    width: min(980px, 100%);
+    margin: 0 auto;
+}
+
+.practice-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 18px;
+}
+
+.practice-back {
+    min-height: 46px;
+    padding: 0 15px;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    border-radius: 13px;
+    border: 1px solid rgba(148,163,184,.10);
+    background: rgba(15,23,42,.72);
+    color: #94a3b8;
+    font-family: "Noto Sans Arabic", Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: .18s ease;
+}
+
+.practice-back:hover {
+    color: #e2e8f0;
+    background: rgba(255,255,255,.06);
+    border-color: rgba(129,140,248,.22);
+    transform: translateY(-2px);
+}
+
+.practice-back span:first-child {
+    direction: ltr;
+    font-size: 16px;
+}
+
+.practice-progress {
+    min-width: 80px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(129,140,248,.14);
+    background: rgba(99,102,241,.08);
+    color: #a5b4fc;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.practice-card {
+    position: relative;
+    overflow: hidden;
+    min-height: 650px;
+    padding: clamp(28px, 5vw, 52px);
+    border-radius: 30px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(17,25,48,.96),
+            rgba(8,14,29,.90)
+        );
+    border: 1px solid rgba(148,163,184,.11);
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.25),
+        inset 0 1px rgba(255,255,255,.04);
+    backdrop-filter: blur(24px);
+}
+
+.practice-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 12%;
+    right: 12%;
+    height: 1px;
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(34,211,238,.6),
+            rgba(129,140,248,.5),
+            transparent
+        );
+}
+
+.practice-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 12px;
+    border-radius: 11px;
+    border: 1px solid rgba(34,211,238,.14);
+    background: rgba(34,211,238,.07);
+    color: #67e8f9;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.3px;
+    direction: ltr;
+}
+
+.practice-label {
+    margin-top: 42px;
+    color: #64748b;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .4px;
+}
+
+.practice-arabic {
+    margin-top: 14px;
+    max-width: 880px;
+    font-size: clamp(32px, 5vw, 58px);
+    line-height: 1.45;
+    font-weight: 800;
+    color: #f8fafc;
+    text-shadow: 0 5px 30px rgba(0,0,0,.20);
+}
+
+.practice-speaker {
+    margin-top: 24px;
+}
+
+.practice-divider {
+    width: 100%;
+    height: 1px;
+    margin-top: 38px;
+    background: rgba(255,255,255,.06);
+}
+
+.practice-english {
+    margin-top: 14px;
+    max-width: 880px;
+    color: #67e8f9;
+    font-size: clamp(25px, 4vw, 44px);
+    line-height: 1.4;
+    font-weight: 800;
+    text-align: left;
+    direction: ltr;
+}
+
+.practice-hint {
+    margin-top: 15px;
+    color: #475569;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+.practice-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 11px;
+    margin-top: 40px;
+}
+
+@media (max-width: 900px) {
+    .mode-cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 650px) {
+    .mode-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .practice-screen {
+        padding: 12px;
+    }
+
+    .practice-topbar {
+        margin-bottom: 12px;
+    }
+
+    .practice-back {
+        min-height: 43px;
+        padding: 0 12px;
+        font-size: 11px;
+    }
+
+    .practice-progress {
+        min-width: 70px;
+        font-size: 10px;
+    }
+
+    .practice-card {
+        min-height: calc(100vh - 95px);
+        padding: 22px 18px;
+        border-radius: 20px;
+    }
+
+    .practice-label {
+        margin-top: 32px;
+        font-size: 10px;
+    }
+
+    .practice-arabic {
+        margin-top: 11px;
+        font-size: clamp(28px, 8vw, 37px);
+        line-height: 1.55;
+    }
+
+    .practice-english {
+        font-size: clamp(22px, 6.5vw, 31px);
+        word-break: break-word;
+    }
+
+    .practice-divider {
+        margin-top: 30px;
+    }
+
+    .practice-actions {
+        margin-top: 30px;
+    }
+}
+
 </style>
 </head>
 
@@ -2203,7 +2463,7 @@ body {
                 <span class="count-number" id="vocabCount">0</span>
                 <span>WORDS</span>
                 <i></i>
-                <span>3 MODES</span>
+                <span>3 EXAM MODES</span>
             </div>
 
         </div>
@@ -2394,6 +2654,56 @@ body {
 
             </button>
 
+
+            <!-- Practice Mode -->
+
+            <button
+                class="mode-card practice-mode"
+                onclick="startPractice()">
+
+                <div class="card-glow"></div>
+
+                <div class="mode-icon icon-practice">
+
+                    <svg viewBox="0 0 64 64" aria-hidden="true">
+                        <path
+                            d="M15 14h34a6 6 0 0 1 6 6v24a6 6 0 0 1-6 6H27l-10 7v-7h-2a6 6 0 0 1-6-6V20a6 6 0 0 1 6-6Z"
+                            fill="currentColor"/>
+
+                        <path
+                            d="M18 25h28M18 33h21M18 41h14"
+                            stroke="white"
+                            stroke-width="3"
+                            stroke-linecap="round"
+                            opacity=".82"/>
+                    </svg>
+
+                </div>
+
+                <div class="mode-info">
+
+                    <div class="mode-number">
+                        04
+                    </div>
+
+                    <h2>
+                        Practice
+                        <span>Mode</span>
+                    </h2>
+
+                    <p>
+                        ذاكر الكلمات وشوف الترجمة واسمع النطق الإنجليزي من غير امتحان
+                    </p>
+
+                </div>
+
+                <div class="mode-arrow">
+                    →
+                </div>
+
+            </button>
+
+
         </div>
 
 
@@ -2401,6 +2711,108 @@ body {
             <span>CHOOSE YOUR MODE</span>
             <span class="footer-line"></span>
             <span>START WHEN READY</span>
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     PRACTICE SCREEN
+===================================================== -->
+
+<section class="practice-screen" id="practiceScreen">
+
+    <div class="practice-container">
+
+        <div class="practice-topbar">
+
+            <button
+                class="practice-back"
+                type="button"
+                onclick="exitPractice()">
+
+                <span>←</span>
+                <span>العودة للاختيارات</span>
+
+            </button>
+
+            <div class="practice-progress" id="practiceProgress">
+                1 / 28
+            </div>
+
+        </div>
+
+
+        <div class="practice-card">
+
+            <div class="practice-badge">
+                📚 PRACTICE MODE
+            </div>
+
+            <div class="practice-label">
+                الكلمة بالعربي
+            </div>
+
+            <div
+                class="practice-arabic"
+                id="practiceArabic">
+            </div>
+
+            <button
+                class="speaker practice-speaker"
+                id="practiceSpeakerBtn"
+                type="button"
+                onclick="speakPracticeCurrent()"
+                title="النطق الإنجليزي"
+                aria-label="تشغيل النطق الإنجليزي">
+
+                🔊
+
+            </button>
+
+
+            <div class="practice-divider"></div>
+
+
+            <div class="practice-label">
+                الترجمة بالإنجليزي
+            </div>
+
+            <div
+                class="practice-english en"
+                id="practiceEnglish">
+            </div>
+
+            <div class="practice-hint">
+                اسمع النطق، كرر الكلمة، وبعدها انتقل للكلمة اللي بعدها.
+            </div>
+
+
+            <div class="practice-actions">
+
+                <button
+                    class="btn btn-secondary"
+                    type="button"
+                    onclick="practicePrevious()">
+
+                    السابق
+
+                </button>
+
+                <button
+                    class="btn btn-primary"
+                    type="button"
+                    onclick="practiceNext()">
+
+                    التالي
+
+                </button>
+
+            </div>
+
         </div>
 
     </div>
@@ -2909,6 +3321,113 @@ function setSpeakerVisibility(visible) {
             window.speechSynthesis.cancel();
         }
     }
+}
+
+
+
+/* =========================================================
+   PRACTICE MODE
+========================================================= */
+
+const practiceScreen =
+    document.getElementById("practiceScreen");
+
+const practiceArabic =
+    document.getElementById("practiceArabic");
+
+const practiceEnglish =
+    document.getElementById("practiceEnglish");
+
+const practiceProgress =
+    document.getElementById("practiceProgress");
+
+const practiceSpeakerButton =
+    document.getElementById("practiceSpeakerBtn");
+
+let practiceIndex = 0;
+
+function startPractice() {
+
+    stopCurrentAudio();
+
+    mode = null;
+    questions = [];
+    currentIndex = 0;
+    answered = [];
+    results = [];
+
+    practiceIndex = 0;
+
+    setSpeakerVisibility(false);
+
+    hideExitConfirm();
+
+    modeScreen.style.display = "none";
+    examScreen.style.display = "none";
+    resultsScreen.style.display = "none";
+    practiceScreen.style.display = "block";
+
+    showPracticeWord();
+}
+
+function exitPractice() {
+
+    stopCurrentAudio();
+
+    if ("speechSynthesis" in window) {
+        window.speechSynthesis.cancel();
+    }
+
+    practiceScreen.style.display = "none";
+    resultsScreen.style.display = "none";
+    examScreen.style.display = "none";
+    modeScreen.style.display = "flex";
+
+    practiceIndex = 0;
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+function showPracticeWord() {
+
+    stopCurrentAudio();
+
+    const item =
+        vocabulary[practiceIndex];
+
+    if (!item) return;
+
+    practiceArabic.textContent =
+        item.ar;
+
+    practiceEnglish.textContent =
+        item.en;
+
+    practiceProgress.textContent =
+        `${practiceIndex + 1} / ${vocabulary.length}`;
+}
+
+function practicePrevious() {
+
+    practiceIndex =
+        practiceIndex <= 0
+            ? vocabulary.length - 1
+            : practiceIndex - 1;
+
+    showPracticeWord();
+}
+
+function practiceNext() {
+
+    practiceIndex =
+        practiceIndex >= vocabulary.length - 1
+            ? 0
+            : practiceIndex + 1;
+
+    showPracticeWord();
 }
 
 
@@ -3864,27 +4383,33 @@ function updateSpeakerState(speaker, speaking) {
 
 function stopCurrentAudio() {
 
-    if (!currentAudio) return;
+    if (currentAudio) {
 
-    try {
+        try {
 
-        currentAudio.pause();
-        currentAudio.currentTime = 0;
+            currentAudio.pause();
+            currentAudio.currentTime = 0;
 
+        }
+        catch (error) {
+
+            console.warn(
+                "Could not stop generated audio:",
+                error
+            );
+        }
+
+        currentAudio.src = "";
+        currentAudio = null;
     }
-    catch (error) {
-
-        console.warn(
-            "Could not stop generated audio:",
-            error
-        );
-    }
-
-    currentAudio.src = "";
-    currentAudio = null;
 
     updateSpeakerState(
         document.getElementById("speakerBtn"),
+        false
+    );
+
+    updateSpeakerState(
+        document.getElementById("practiceSpeakerBtn"),
         false
     );
 }
@@ -4045,23 +4570,13 @@ function speakWithNativeFallback(text, speaker) {
 }
 
 
-function speakCurrent() {
+function speakText(text, speaker) {
 
-    const q =
-        questions[currentIndex];
-
-    if (!q) return;
-
-    const text = q.en;
-
-    const speaker =
-        document.getElementById(
-            "speakerBtn"
-        );
+    if (!text || !speaker) return;
 
     /*
-       Tapping while generated audio is playing
-       stops it.
+       Tapping while generated audio is playing stops it.
+       This is shared by Exam and Practice Mode.
     */
     if (currentAudio) {
 
@@ -4070,12 +4585,7 @@ function speakCurrent() {
         return;
     }
 
-    /*
-       Stop any previous native fallback before trying
-       the generated MP3.
-    */
     if ("speechSynthesis" in window) {
-
         window.speechSynthesis.cancel();
     }
 
@@ -4085,8 +4595,8 @@ function speakCurrent() {
     );
 
     /*
-       The generated URL is synchronous. That keeps
-       audio.play() inside the user's click.
+       Keep audio.play() inside the user's click.
+       The generated MP3 is deterministic and static.
     */
     const audio =
         new Audio(
@@ -4102,7 +4612,6 @@ function speakCurrent() {
     const cleanup = () => {
 
         if (currentAudio === audio) {
-
             currentAudio = null;
         }
 
@@ -4169,6 +4678,34 @@ function speakCurrent() {
 
         fallback();
     }
+}
+
+
+function speakCurrent() {
+
+    const q =
+        questions[currentIndex];
+
+    if (!q) return;
+
+    speakText(
+        q.en,
+        document.getElementById("speakerBtn")
+    );
+}
+
+
+function speakPracticeCurrent() {
+
+    const item =
+        vocabulary[practiceIndex];
+
+    if (!item) return;
+
+    speakText(
+        item.en,
+        practiceSpeakerButton
+    );
 }
 
 
