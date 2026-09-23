@@ -1,0 +1,11 @@
+{
+  "name": "vocabulary-master",
+  "version": "5.0.0",
+  "private": true,
+  "scripts": {
+    "generate:audio": "node scripts/generate-audio.cjs"
+  },
+  "devDependencies": {
+    "@sefinek/google-tts-api": "2.1.15"
+  }
+}

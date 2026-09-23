@@ -1,0 +1,4600 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>Vocabulary Master 5.1</title>
+
+<!-- خط واحد يدعم العربي والإنجليزي -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html {
+    min-height: 100%;
+    background: #070b14;
+}
+
+body {
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 15% 10%, rgba(79, 70, 229, .13), transparent 30%),
+        radial-gradient(circle at 85% 90%, rgba(6, 182, 212, .10), transparent 30%),
+        #070b14;
+
+    color: #f8fafc;
+
+    font-family:
+        "Noto Sans Arabic",
+        Arial,
+        sans-serif;
+
+    overflow-x: hidden;
+}
+
+/* English */
+.en {
+    font-family:
+        "Noto Sans Arabic",
+        Arial,
+        sans-serif;
+
+    direction: ltr;
+}
+
+/* =========================================================
+   BACKGROUND
+========================================================= */
+
+.bg-grid {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+
+    background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+
+    background-size: 45px 45px;
+}
+
+.glow {
+    position: fixed;
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    filter: blur(100px);
+    pointer-events: none;
+    opacity: .15;
+    z-index: 0;
+}
+
+.glow.one {
+    background: #6366f1;
+    top: -150px;
+    left: -100px;
+}
+
+.glow.two {
+    background: #06b6d4;
+    bottom: -150px;
+    right: -100px;
+}
+
+/* =========================================================
+   APP
+========================================================= */
+
+.app {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    width: 100%;
+}
+
+/* =========================================================
+   MODE SCREEN
+========================================================= */
+
+.mode-screen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 40px 20px;
+}
+
+.mode-container {
+    width: min(1050px, 100%);
+    text-align: center;
+}
+
+.logo {
+    margin-bottom: 12px;
+}
+
+.logo-icon {
+    width: 72px;
+    height: 72px;
+
+    margin: 0 auto 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(135deg, #6366f1, #06b6d4);
+
+    box-shadow:
+        0 0 40px rgba(99,102,241,.28);
+
+    font-size: 34px;
+}
+
+.logo h1 {
+    font-size: clamp(30px, 5vw, 52px);
+    font-weight: 800;
+
+    background:
+        linear-gradient(90deg, #fff, #a5b4fc, #67e8f9);
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.logo p {
+    margin-top: 8px;
+    color: #94a3b8;
+    font-size: 15px;
+}
+
+.modes {
+    margin-top: 45px;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.mode-card {
+    position: relative;
+
+    padding: 30px 22px;
+
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 22px;
+
+    background:
+        rgba(15, 23, 42, .72);
+
+    backdrop-filter: blur(18px);
+
+    cursor: pointer;
+
+    transition:
+        transform .2s ease,
+        border-color .2s ease,
+        background .2s ease;
+}
+
+.mode-card:hover {
+    transform: translateY(-5px);
+
+    border-color: rgba(129,140,248,.55);
+
+    background:
+        rgba(30,41,59,.85);
+}
+
+.mode-card:active {
+    transform: scale(.98);
+}
+
+.mode-icon {
+    font-size: 38px;
+    margin-bottom: 15px;
+}
+
+.mode-card h2 {
+    font-size: 20px;
+    margin-bottom: 9px;
+}
+
+.mode-card p {
+    color: #94a3b8;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* =========================================================
+   EXAM
+========================================================= */
+
+.exam-screen {
+    display: none;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.exam {
+    width: min(1250px, 100%);
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: 250px minmax(0, 1fr);
+    gap: 20px;
+}
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar {
+    background: rgba(15,23,42,.78);
+
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 22px;
+
+    padding: 20px;
+
+    backdrop-filter: blur(18px);
+
+    height: fit-content;
+
+    position: sticky;
+    top: 20px;
+}
+
+.sidebar-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 17px;
+}
+
+.sidebar-title h3 {
+    font-size: 16px;
+}
+
+.counter {
+    font-size: 12px;
+    color: #94a3b8;
+}
+
+.question-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+}
+
+.q-number {
+    height: 38px;
+
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 10px;
+
+    background: rgba(255,255,255,.035);
+
+    color: #94a3b8;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 12px;
+    cursor: pointer;
+
+    transition: .15s;
+}
+
+.q-number.current {
+    background: #6366f1;
+    color: white;
+    border-color: #818cf8;
+}
+
+.q-number.correct {
+    background: rgba(34,197,94,.15);
+    color: #4ade80;
+    border-color: rgba(34,197,94,.3);
+}
+
+.q-number.wrong {
+    background: rgba(239,68,68,.13);
+    color: #f87171;
+    border-color: rgba(239,68,68,.3);
+}
+
+/* =========================================================
+   MAIN EXAM CARD
+========================================================= */
+
+.main {
+    min-width: 0;
+}
+
+.exam-card {
+    background: rgba(15,23,42,.78);
+
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 22px;
+
+    padding: clamp(22px, 4vw, 42px);
+
+    backdrop-filter: blur(18px);
+
+    min-height: 650px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+/* TOP */
+
+.exam-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 35px;
+}
+
+.mode-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 8px 13px;
+
+    border-radius: 999px;
+
+    background: rgba(99,102,241,.12);
+    color: #a5b4fc;
+
+    font-size: 12px;
+}
+
+.progress-text {
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+/* QUESTION */
+
+.question-area {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.question-label {
+    color: #64748b;
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+
+.question-text {
+    font-size: clamp(26px, 4vw, 44px);
+    font-weight: 800;
+    line-height: 1.45;
+
+    word-break: break-word;
+}
+
+.question-text.english {
+    direction: ltr;
+    text-align: left;
+}
+
+/* SPEAKER */
+
+.speaker {
+    margin-top: 22px;
+
+    width: 48px;
+    height: 48px;
+
+    border-radius: 14px;
+
+    border: 1px solid rgba(255,255,255,.08);
+
+    background: rgba(255,255,255,.045);
+
+    color: #67e8f9;
+
+    font-size: 20px;
+
+    cursor: pointer;
+
+    transition: .18s;
+}
+
+.speaker:hover {
+    background: rgba(34,211,238,.12);
+    transform: translateY(-2px);
+}
+
+.speaker:active {
+    transform: scale(.94);
+}
+
+/*
+   Visibility is controlled by JavaScript state.
+   [hidden] must win over the normal .speaker display.
+*/
+.speaker[hidden] {
+    display: none !important;
+}
+
+/* ANSWER */
+
+.answer-area {
+    margin-top: 40px;
+}
+
+.answer-input {
+    width: 100%;
+
+    min-height: 64px;
+
+    padding: 16px 19px;
+
+    border-radius: 16px;
+
+    border: 1px solid rgba(255,255,255,.09);
+
+    background: rgba(2,6,23,.65);
+
+    color: white;
+
+    outline: none;
+
+    font-family:
+        "Noto Sans Arabic",
+        Arial,
+        sans-serif;
+
+    font-size: 18px;
+
+    transition: .2s;
+}
+
+.answer-input:focus {
+    border-color: #6366f1;
+
+    box-shadow:
+        0 0 0 3px rgba(99,102,241,.12);
+}
+
+.answer-input.english-input {
+    direction: ltr;
+    text-align: left;
+}
+
+/* BUTTONS */
+
+.actions {
+    display: flex;
+    gap: 12px;
+
+    margin-top: 16px;
+}
+
+.btn {
+    min-height: 52px;
+
+    padding: 0 22px;
+
+    border-radius: 14px;
+
+    border: 1px solid rgba(255,255,255,.08);
+
+    font-family:
+        "Noto Sans Arabic",
+        Arial,
+        sans-serif;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: .18s;
+}
+
+.btn:active {
+    transform: scale(.97);
+}
+
+.btn-primary {
+    flex: 1;
+
+    color: white;
+
+    background:
+        linear-gradient(135deg, #6366f1, #4f46e5);
+
+    box-shadow:
+        0 8px 25px rgba(79,70,229,.2);
+}
+
+.btn-primary:hover {
+    filter: brightness(1.1);
+}
+
+.btn-secondary {
+    color: #cbd5e1;
+    background: rgba(255,255,255,.04);
+}
+
+.btn-secondary:hover {
+    background: rgba(255,255,255,.08);
+}
+
+/* =========================================================
+   RESULTS
+========================================================= */
+
+.results-screen {
+    display: none;
+
+    min-height: 100vh;
+
+    padding: 35px 20px;
+}
+
+.results {
+    width: min(950px, 100%);
+    margin: auto;
+
+    text-align: center;
+}
+
+.result-icon {
+    width: 90px;
+    height: 90px;
+
+    margin: 0 auto 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 28px;
+
+    background:
+        linear-gradient(135deg, #6366f1, #06b6d4);
+
+    font-size: 42px;
+
+    box-shadow:
+        0 0 50px rgba(99,102,241,.25);
+}
+
+.results h1 {
+    font-size: clamp(28px, 5vw, 44px);
+}
+
+.result-subtitle {
+    color: #94a3b8;
+    margin-top: 8px;
+}
+
+.score-card {
+    margin-top: 35px;
+
+    padding: 35px;
+
+    border-radius: 24px;
+
+    background: rgba(15,23,42,.8);
+
+    border: 1px solid rgba(255,255,255,.07);
+
+    backdrop-filter: blur(18px);
+}
+
+.score-number {
+    font-size: clamp(55px, 10vw, 90px);
+
+    font-weight: 800;
+
+    background:
+        linear-gradient(90deg, #818cf8, #67e8f9);
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.score-percent {
+    color: #94a3b8;
+}
+
+.direction-scores {
+    margin-top: 28px;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 14px;
+}
+
+.direction-card {
+    padding: 20px;
+
+    border-radius: 16px;
+
+    background: rgba(255,255,255,.035);
+
+    border: 1px solid rgba(255,255,255,.06);
+}
+
+.direction-card h3 {
+    font-size: 15px;
+    margin-bottom: 8px;
+}
+
+.direction-score {
+    font-size: 25px;
+    font-weight: 800;
+}
+
+.stats-card {
+    margin-top: 18px;
+    padding: 22px;
+    border-radius: 20px;
+    background: rgba(15,23,42,.72);
+    border: 1px solid rgba(255,255,255,.07);
+    backdrop-filter: blur(18px);
+    text-align: right;
+}
+
+.stats-card-title {
+    font-size: 16px;
+    font-weight: 800;
+    margin-bottom: 15px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.stat-box {
+    padding: 15px 12px;
+    border-radius: 14px;
+    background: rgba(255,255,255,.035);
+    border: 1px solid rgba(255,255,255,.055);
+    text-align: center;
+}
+
+.stat-label {
+    display: block;
+    color: #64748b;
+    font-size: 11px;
+    margin-bottom: 7px;
+}
+
+.stat-box strong {
+    display: block;
+    color: #e2e8f0;
+    font-size: 20px;
+}
+
+@media (max-width: 650px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.result-list {
+    margin-top: 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    text-align: right;
+}
+
+.result-item {
+    padding: 17px;
+
+    border-radius: 15px;
+
+    background: rgba(255,255,255,.035);
+
+    border: 1px solid rgba(255,255,255,.06);
+}
+
+.result-item.correct {
+    border-color: rgba(34,197,94,.2);
+}
+
+.result-item.wrong {
+    border-color: rgba(239,68,68,.2);
+}
+
+.result-word {
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.result-answer {
+    color: #94a3b8;
+    font-size: 14px;
+}
+
+.error-analysis {
+    margin-top: 10px;
+
+    color: #fca5a5;
+
+    font-size: 13px;
+
+    line-height: 1.8;
+}
+
+.restart {
+    margin-top: 25px;
+    width: 100%;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 850px) {
+
+    .exam-screen {
+        padding: 12px;
+    }
+
+    .exam {
+        display: block;
+    }
+
+    .sidebar {
+        position: static;
+
+        margin-bottom: 12px;
+
+        padding: 12px 14px;
+
+        border-radius: 17px;
+    }
+
+    .sidebar-title {
+        margin-bottom: 10px;
+    }
+
+    .question-grid {
+        display: flex;
+
+        overflow-x: auto;
+
+        gap: 7px;
+
+        padding-bottom: 2px;
+
+        scrollbar-width: none;
+    }
+
+    .question-grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    .q-number {
+        flex: 0 0 36px;
+        height: 36px;
+    }
+
+    .exam-card {
+        min-height: calc(100vh - 105px);
+
+        border-radius: 18px;
+
+        padding: 20px 17px;
+    }
+
+    .exam-top {
+        margin-bottom: 25px;
+    }
+
+    .question-area {
+        justify-content: flex-start;
+        padding-top: 15px;
+    }
+
+    .question-text {
+        font-size: clamp(25px, 7vw, 34px);
+    }
+
+    .answer-area {
+        margin-top: 30px;
+    }
+
+    .answer-input {
+        min-height: 58px;
+        font-size: 17px;
+    }
+
+    .btn {
+        min-height: 50px;
+    }
+}
+
+/* =========================================================
+   SMALL PHONES
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .mode-screen {
+        padding: 25px 14px;
+    }
+
+    .logo-icon {
+        width: 62px;
+        height: 62px;
+        border-radius: 19px;
+        font-size: 29px;
+    }
+
+    .logo h1 {
+        font-size: 32px;
+    }
+
+    .logo p {
+        font-size: 13px;
+    }
+
+    .modes {
+        margin-top: 30px;
+
+        grid-template-columns: 1fr;
+
+        gap: 12px;
+    }
+
+    .mode-card {
+        padding: 20px 17px;
+
+        border-radius: 17px;
+
+        display: grid;
+
+        grid-template-columns: 55px 1fr;
+
+        text-align: right;
+
+        align-items: center;
+    }
+
+    .mode-icon {
+        grid-row: span 2;
+
+        margin: 0;
+
+        font-size: 30px;
+    }
+
+    .mode-card h2 {
+        font-size: 17px;
+        margin-bottom: 3px;
+    }
+
+    .mode-card p {
+        font-size: 12px;
+        line-height: 1.6;
+    }
+
+    .exam-top {
+        align-items: flex-start;
+    }
+
+    .mode-badge {
+        font-size: 11px;
+        padding: 7px 10px;
+    }
+
+    .progress-text {
+        font-size: 11px;
+    }
+
+    .question-label {
+        font-size: 12px;
+    }
+
+    .question-text {
+        font-size: 27px;
+        line-height: 1.55;
+    }
+
+    .speaker {
+        width: 45px;
+        height: 45px;
+    }
+
+    .actions {
+        gap: 8px;
+    }
+
+    .btn {
+        padding: 0 13px;
+        font-size: 13px;
+    }
+
+    .direction-scores {
+        grid-template-columns: 1fr;
+    }
+
+    .score-card {
+        padding: 25px 17px;
+    }
+}
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .exam-screen {
+        padding: 8px;
+    }
+
+    .exam-card {
+        padding: 17px 13px;
+    }
+
+    .question-text {
+        font-size: 24px;
+    }
+
+    .answer-input {
+        font-size: 16px;
+    }
+
+    .btn {
+        font-size: 12px;
+    }
+}
+
+/* =========================================================
+   VOCABULARY MASTER — NEW MODE SELECTION DESIGN
+   Overrides only the mode-selection screen.
+========================================================= */
+
+.mode-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:55px 25px;overflow:hidden}
+.mode-container{width:min(1120px,100%);text-align:center;position:relative}
+.hero{display:flex;flex-direction:column;align-items:center}
+.hero-logo{width:82px;height:82px;display:flex;align-items:center;justify-content:center;border-radius:25px;background:linear-gradient(135deg,rgba(99,102,241,.95),rgba(6,182,212,.95));box-shadow:0 15px 45px rgba(99,102,241,.25),inset 0 1px rgba(255,255,255,.3);margin-bottom:25px}
+.hero-logo svg{width:55px;height:55px}
+.hero-eyebrow{display:flex;align-items:center;gap:12px;color:#64748b;font-size:10px;font-weight:800;letter-spacing:3px;margin-bottom:10px}
+.hero-eyebrow span{width:22px;height:1px;background:linear-gradient(90deg,transparent,#475569)}
+.hero-eyebrow span:last-child{background:linear-gradient(90deg,#475569,transparent)}
+.hero h1{font-size:clamp(42px,6vw,68px);line-height:1.05;font-weight:800;letter-spacing:-2px;color:#f8fafc;margin:0}
+.hero h1 strong{background:linear-gradient(100deg,#818cf8,#67e8f9);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero>p{color:#94a3b8;font-size:16px;margin-top:15px}
+.word-count{margin-top:22px;display:inline-flex;align-items:center;gap:10px;padding:7px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.07);background:rgba(15,23,42,.55);color:#64748b;font-size:10px;font-weight:800;letter-spacing:1.5px}
+.count-number{color:#a5b4fc;font-size:13px}
+.word-count i{width:3px;height:3px;border-radius:50%;background:#475569}
+
+.mode-cards{margin-top:48px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.mode-card{position:relative;min-height:220px;padding:27px;text-align:right;border-radius:24px;border:1px solid rgba(148,163,184,.10);background:linear-gradient(145deg,rgba(15,23,42,.92),rgba(15,23,42,.65));color:white;cursor:pointer;overflow:hidden;font-family:"Noto Sans Arabic",Arial,sans-serif;appearance:none;-webkit-appearance:none;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease,background .25s ease}
+.mode-card::before{content:"";position:absolute;top:0;left:20px;right:20px;height:1px;background:linear-gradient(90deg,transparent,rgba(129,140,248,.5),transparent);opacity:.4}
+.card-glow{position:absolute;width:180px;height:180px;border-radius:50%;top:-100px;right:-80px;background:#6366f1;filter:blur(70px);opacity:0;transition:opacity .3s ease;pointer-events:none}
+.mode-card:hover{transform:translateY(-7px);border-color:rgba(129,140,248,.35);box-shadow:0 18px 45px rgba(0,0,0,.25);background:linear-gradient(145deg,rgba(20,29,52,.98),rgba(15,23,42,.78))}
+.mode-card:hover .card-glow{opacity:.18}
+.mode-card:active{transform:scale(.985)}
+
+.mode-icon{width:58px;height:58px;display:flex;align-items:center;justify-content:center;border-radius:17px;margin-bottom:26px;background:rgba(99,102,241,.10);border:1px solid rgba(129,140,248,.16);color:#818cf8;transition:.25s}
+.mode-icon svg{width:34px;height:34px}
+.mode-card:hover .mode-icon{transform:scale(1.06);background:rgba(99,102,241,.16);box-shadow:0 0 25px rgba(99,102,241,.15)}
+.icon-english{color:#67e8f9;background:rgba(34,211,238,.08);border-color:rgba(34,211,238,.15)}
+.icon-mixed{color:#a5b4fc;background:rgba(129,140,248,.08)}
+
+.mode-info{position:relative;z-index:2}
+.mode-number{color:#475569;font-size:10px;font-weight:800;letter-spacing:2px;margin-bottom:7px}
+.mode-card h2{font-size:23px;line-height:1.25;margin:0;font-weight:800;direction:ltr;text-align:left}
+.mode-card h2 span{color:#818cf8}
+.mode-card p{margin-top:11px;color:#64748b;font-size:12px;line-height:1.7;direction:rtl;text-align:right}
+
+.mode-arrow{position:absolute;left:24px;bottom:23px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:10px;color:#64748b;background:rgba(255,255,255,.035);font-size:18px;transition:.25s}
+.mode-card:hover .mode-arrow{color:white;background:rgba(99,102,241,.18);transform:translateX(-3px)}
+
+.primary-mode{border-color:rgba(129,140,248,.23);background:linear-gradient(145deg,rgba(25,31,65,.96),rgba(15,23,42,.78));box-shadow:0 0 0 1px rgba(99,102,241,.04),0 15px 45px rgba(30,27,75,.12)}
+.primary-mode .mode-icon{color:#a5b4fc;background:rgba(99,102,241,.14);border-color:rgba(129,140,248,.25)}
+
+.hero-footer{margin-top:28px;display:flex;align-items:center;justify-content:center;gap:13px;color:#334155;font-size:9px;font-weight:800;letter-spacing:2px}
+.footer-line{width:40px;height:1px;background:#1e293b}
+
+@media (max-width:900px){
+  .mode-screen{padding:45px 20px}
+  .mode-cards{gap:12px}
+  .mode-card{padding:22px;min-height:215px}
+  .mode-card h2{font-size:19px}
+  .mode-card p{font-size:11px}
+}
+
+@media (max-width:650px){
+  .mode-screen{align-items:flex-start;padding:32px 16px 28px;min-height:100svh}
+  .hero-logo{width:68px;height:68px;border-radius:21px;margin-bottom:20px}
+  .hero-logo svg{width:45px;height:45px}
+  .hero-eyebrow{font-size:8px;letter-spacing:2.2px;gap:8px}
+  .hero h1{font-size:38px;letter-spacing:-1.5px}
+  .hero>p{font-size:14px;margin-top:12px}
+  .word-count{margin-top:17px}
+  .mode-cards{width:100%;margin-top:32px;grid-template-columns:1fr;gap:12px}
+  .mode-card{width:100%;min-height:0;padding:18px 18px 18px 22px;border-radius:20px;display:grid;grid-template-columns:55px 1fr 55px;align-items:center;column-gap:15px;text-align:right}
+  .mode-icon{width:55px;height:55px;margin:0;grid-column:3;grid-row:1 / span 2}
+  .mode-icon svg{width:31px;height:31px}
+  .mode-info{grid-column:2;grid-row:1 / span 2;text-align:right}
+  .mode-number{margin-bottom:4px;font-size:8px}
+  .mode-card h2{font-size:19px;text-align:right;white-space:nowrap}
+  .mode-card p{margin-top:5px;font-size:11px;line-height:1.6;text-align:right}
+  .mode-arrow{position:static;grid-column:1;grid-row:1 / span 2;width:30px;height:30px;font-size:15px}
+  .hero-footer{margin-top:22px;font-size:7px;letter-spacing:1.5px}
+}
+
+@media (max-width:380px){
+  .mode-screen{padding:25px 12px 22px}
+  .hero h1{font-size:34px}
+  .hero>p{font-size:13px}
+  .mode-card{padding:16px 14px 16px 18px;grid-template-columns:45px 1fr 48px;column-gap:10px}
+  .mode-icon{width:48px;height:48px}
+  .mode-card h2{font-size:17px}
+  .mode-card p{font-size:10px}
+  .mode-arrow{width:28px;height:28px}
+}
+
+
+/* =========================================================
+   VOCABULARY MASTER 3.2 — GLOBAL EXAM EXPERIENCE
+   Visual upgrade only — exam logic remains unchanged.
+========================================================= */
+
+/* ---------- Exam background ---------- */
+
+.exam-screen {
+    position: relative;
+    padding: 28px;
+}
+
+.exam-screen::before {
+    content: "";
+    position: fixed;
+    width: 520px;
+    height: 520px;
+    border-radius: 50%;
+    top: 8%;
+    left: 20%;
+    background: rgba(99,102,241,.07);
+    filter: blur(120px);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.exam-screen::after {
+    content: "";
+    position: fixed;
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    right: 4%;
+    bottom: 5%;
+    background: rgba(6,182,212,.055);
+    filter: blur(110px);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.exam {
+    width: min(1320px, 100%);
+    grid-template-columns: 270px minmax(0, 1fr);
+    gap: 22px;
+}
+
+/* ---------- Sidebar ---------- */
+
+.sidebar {
+    background:
+        linear-gradient(
+            160deg,
+            rgba(17,25,48,.94),
+            rgba(8,14,29,.88)
+        );
+
+    border: 1px solid rgba(148,163,184,.11);
+    border-radius: 24px;
+
+    padding: 20px;
+
+    box-shadow:
+        0 20px 55px rgba(0,0,0,.20),
+        inset 0 1px rgba(255,255,255,.035);
+
+    backdrop-filter: blur(24px);
+}
+
+.sidebar-title {
+    margin-bottom: 18px;
+    padding-bottom: 16px;
+
+    border-bottom: 1px solid rgba(255,255,255,.055);
+}
+
+.sidebar-title h3 {
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: .2px;
+}
+
+.counter {
+    padding: 5px 9px;
+
+    border-radius: 999px;
+
+    background: rgba(99,102,241,.10);
+    border: 1px solid rgba(129,140,248,.13);
+
+    color: #a5b4fc;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.question-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 9px;
+}
+
+.q-number {
+    height: 40px;
+
+    border-radius: 12px;
+
+    border: 1px solid rgba(148,163,184,.08);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.045),
+            rgba(255,255,255,.018)
+        );
+
+    color: #64748b;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    transition:
+        transform .18s ease,
+        background .18s ease,
+        border-color .18s ease,
+        box-shadow .18s ease;
+}
+
+.q-number:hover {
+    transform: translateY(-2px);
+    color: #cbd5e1;
+    border-color: rgba(129,140,248,.25);
+    background: rgba(99,102,241,.08);
+}
+
+.q-number.current {
+    color: white;
+
+    background:
+        linear-gradient(135deg,#6366f1,#4f46e5);
+
+    border-color: rgba(165,180,252,.65);
+
+    box-shadow:
+        0 8px 22px rgba(79,70,229,.28),
+        0 0 0 3px rgba(99,102,241,.08);
+}
+
+.q-number.correct {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(34,197,94,.18),
+            rgba(34,197,94,.07)
+        );
+
+    border-color: rgba(74,222,128,.25);
+    color: #86efac;
+}
+
+.q-number.wrong {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(239,68,68,.17),
+            rgba(239,68,68,.06)
+        );
+
+    border-color: rgba(248,113,113,.25);
+    color: #fca5a5;
+}
+
+/* ---------- Main card ---------- */
+
+.exam-card {
+    position: relative;
+    overflow: hidden;
+
+    min-height: 700px;
+
+    padding: 34px 42px;
+
+    border-radius: 28px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(17,25,48,.94),
+            rgba(8,14,29,.88)
+        );
+
+    border: 1px solid rgba(148,163,184,.11);
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.25),
+        inset 0 1px rgba(255,255,255,.04);
+
+    backdrop-filter: blur(25px);
+}
+
+.exam-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 12%;
+    right: 12%;
+
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(129,140,248,.55),
+            rgba(103,232,249,.45),
+            transparent
+        );
+}
+
+.exam-card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 300px;
+    height: 300px;
+
+    top: -210px;
+    right: -130px;
+
+    border-radius: 50%;
+
+    background: rgba(99,102,241,.12);
+
+    filter: blur(70px);
+
+    pointer-events: none;
+}
+
+/* ---------- Header ---------- */
+
+.exam-top {
+    position: relative;
+    z-index: 2;
+
+    margin-bottom: 0;
+
+    padding-bottom: 22px;
+
+    border-bottom: 1px solid rgba(255,255,255,.055);
+}
+
+.mode-badge {
+    padding: 9px 13px;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(99,102,241,.14),
+            rgba(6,182,212,.07)
+        );
+
+    border: 1px solid rgba(129,140,248,.18);
+
+    color: #c7d2fe;
+
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.progress-text {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    color: #64748b;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.progress-text::before {
+    content: "";
+
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: #22d3ee;
+
+    box-shadow:
+        0 0 12px rgba(34,211,238,.65);
+}
+
+/* ---------- Question ---------- */
+
+.question-area {
+    position: relative;
+    z-index: 2;
+
+    justify-content: flex-start;
+
+    padding-top: 62px;
+}
+
+.question-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+
+    color: #64748b;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: .5px;
+
+    margin-bottom: 18px;
+}
+
+.question-label::before {
+    content: "";
+
+    width: 22px;
+    height: 2px;
+
+    border-radius: 999px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #818cf8,
+            #22d3ee
+        );
+}
+
+.question-text {
+    max-width: 900px;
+
+    font-size: clamp(34px, 5vw, 58px);
+
+    line-height: 1.35;
+
+    letter-spacing: -.7px;
+
+    color: #f8fafc;
+
+    text-shadow:
+        0 5px 30px rgba(0,0,0,.20);
+}
+
+.question-text.english {
+    font-size: clamp(31px, 4.4vw, 52px);
+    letter-spacing: -.5px;
+}
+
+/* ---------- Speaker ---------- */
+
+.speaker {
+    position: relative;
+
+    margin-top: 28px;
+
+    width: 52px;
+    height: 52px;
+
+    border-radius: 16px;
+
+    border: 1px solid rgba(103,232,249,.18);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(34,211,238,.10),
+            rgba(99,102,241,.08)
+        );
+
+    color: #67e8f9;
+
+    box-shadow:
+        0 10px 28px rgba(0,0,0,.16);
+
+    font-size: 19px;
+
+    transition:
+        transform .2s ease,
+        border-color .2s ease,
+        background .2s ease,
+        box-shadow .2s ease;
+}
+
+.speaker:hover {
+    transform: translateY(-3px);
+
+    border-color: rgba(103,232,249,.42);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(34,211,238,.17),
+            rgba(99,102,241,.13)
+        );
+
+    box-shadow:
+        0 12px 32px rgba(34,211,238,.12);
+}
+
+.speaker:active {
+    transform: scale(.94);
+}
+
+/* ---------- Answer section ---------- */
+
+.answer-area {
+    position: relative;
+    z-index: 2;
+
+    margin-top: auto;
+
+    padding-top: 40px;
+}
+
+.answer-input {
+    min-height: 70px;
+
+    padding: 17px 21px;
+
+    border-radius: 18px;
+
+    border: 1px solid rgba(148,163,184,.11);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(2,6,23,.72),
+            rgba(15,23,42,.58)
+        );
+
+    box-shadow:
+        inset 0 1px rgba(255,255,255,.025);
+
+    color: #f8fafc;
+
+    font-size: 18px;
+    font-weight: 600;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+}
+
+.answer-input::placeholder {
+    color: #475569;
+}
+
+.answer-input:focus {
+    border-color: rgba(129,140,248,.62);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(5,10,28,.82),
+            rgba(15,23,42,.68)
+        );
+
+    box-shadow:
+        0 0 0 4px rgba(99,102,241,.08),
+        0 12px 35px rgba(0,0,0,.16);
+}
+
+/* ---------- Buttons ---------- */
+
+.actions {
+    gap: 11px;
+    margin-top: 13px;
+}
+
+.btn {
+    min-height: 54px;
+
+    border-radius: 15px;
+
+    font-size: 13px;
+    font-weight: 800;
+
+    transition:
+        transform .18s ease,
+        filter .18s ease,
+        background .18s ease,
+        border-color .18s ease;
+}
+
+.btn-primary {
+    background:
+        linear-gradient(
+            135deg,
+            #6366f1,
+            #4f46e5
+        );
+
+    border-color: rgba(165,180,252,.22);
+
+    box-shadow:
+        0 10px 28px rgba(79,70,229,.20);
+}
+
+.btn-primary:hover {
+    filter: brightness(1.09);
+    transform: translateY(-2px);
+    box-shadow:
+        0 14px 34px rgba(79,70,229,.28);
+}
+
+.btn-secondary {
+    min-width: 105px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    border-color:
+        rgba(148,163,184,.10);
+
+    color: #94a3b8;
+}
+
+.btn-secondary:hover {
+    color: #e2e8f0;
+
+    background:
+        rgba(255,255,255,.065);
+
+    border-color:
+        rgba(148,163,184,.18);
+
+    transform: translateY(-2px);
+}
+
+/* ---------- Mobile exam ---------- */
+
+@media (max-width: 850px) {
+
+    .exam-screen {
+        padding: 12px;
+    }
+
+    .exam {
+        gap: 12px;
+    }
+
+    .sidebar {
+        border-radius: 18px;
+        padding: 11px 12px;
+    }
+
+    .sidebar-title {
+        margin-bottom: 9px;
+        padding-bottom: 9px;
+    }
+
+    .question-grid {
+        gap: 7px;
+    }
+
+    .q-number {
+        height: 36px;
+        border-radius: 10px;
+    }
+
+    .exam-card {
+        min-height: calc(100svh - 108px);
+        padding: 20px 17px;
+        border-radius: 20px;
+    }
+
+    .exam-top {
+        padding-bottom: 15px;
+    }
+
+    .mode-badge {
+        font-size: 10px;
+        padding: 8px 10px;
+    }
+
+    .progress-text {
+        font-size: 10px;
+    }
+
+    .question-area {
+        padding-top: 34px;
+    }
+
+    .question-label {
+        margin-bottom: 13px;
+    }
+
+    .question-text {
+        font-size: clamp(29px, 8vw, 38px);
+        line-height: 1.5;
+    }
+
+    .question-text.english {
+        font-size: clamp(27px, 7.3vw, 35px);
+    }
+
+    .speaker {
+        width: 48px;
+        height: 48px;
+        margin-top: 22px;
+    }
+
+    .answer-area {
+        padding-top: 30px;
+    }
+
+    .answer-input {
+        min-height: 61px;
+        border-radius: 15px;
+        font-size: 17px;
+    }
+
+    .btn {
+        min-height: 50px;
+        border-radius: 14px;
+    }
+}
+
+@media (max-width: 650px) {
+
+    .exam-screen {
+        padding: 8px;
+    }
+
+    .exam-card {
+        padding: 17px 13px;
+        border-radius: 18px;
+    }
+
+    .exam-top {
+        gap: 8px;
+    }
+
+    .mode-badge {
+        max-width: 60%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .question-area {
+        padding-top: 29px;
+    }
+
+    .question-label {
+        font-size: 10px;
+    }
+
+    .question-text {
+        font-size: 27px;
+    }
+
+    .question-text.english {
+        font-size: 25px;
+    }
+
+    .answer-area {
+        padding-top: 25px;
+    }
+
+    .answer-input {
+        min-height: 57px;
+        padding: 14px 15px;
+        font-size: 16px;
+    }
+
+    .actions {
+        gap: 8px;
+    }
+
+    .btn {
+        min-height: 48px;
+        padding: 0 13px;
+        font-size: 12px;
+    }
+
+    .btn-secondary {
+        min-width: 82px;
+    }
+}
+
+@media (max-width: 380px) {
+
+    .question-text {
+        font-size: 24px;
+    }
+
+    .question-text.english {
+        font-size: 22px;
+    }
+
+    .answer-input {
+        font-size: 15px;
+    }
+}
+
+
+/* =========================================================
+   3.3 — EXIT EXAM BUTTON
+========================================================= */
+
+.exam-top {
+    align-items: center;
+}
+
+.exam-top-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.exit-exam {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    min-height: 38px;
+    padding: 0 12px;
+
+    border-radius: 11px;
+
+    border: 1px solid rgba(248,113,113,.13);
+
+    background: rgba(239,68,68,.045);
+
+    color: #94a3b8;
+
+    font-family: "Noto Sans Arabic", Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition:
+        transform .18s ease,
+        color .18s ease,
+        background .18s ease,
+        border-color .18s ease;
+}
+
+.exit-icon {
+    width: 21px;
+    height: 21px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 7px;
+
+    background: rgba(239,68,68,.08);
+
+    color: #f87171;
+
+    font-size: 20px;
+    line-height: 1;
+
+    font-family: Arial, sans-serif;
+}
+
+.exit-exam:hover {
+    transform: translateY(-2px);
+
+    color: #fecaca;
+
+    background: rgba(239,68,68,.10);
+
+    border-color: rgba(248,113,113,.30);
+}
+
+.exit-exam:active {
+    transform: scale(.95);
+}
+
+@media (max-width: 650px) {
+
+    .exam-top-right {
+        gap: 7px;
+        min-width: 0;
+    }
+
+    .exit-exam {
+        min-height: 35px;
+        padding: 0 9px;
+        border-radius: 10px;
+        font-size: 10px;
+        flex-shrink: 0;
+    }
+
+    .exit-icon {
+        width: 19px;
+        height: 19px;
+        font-size: 18px;
+    }
+
+    .mode-badge {
+        max-width: none;
+    }
+}
+
+@media (max-width: 380px) {
+
+    .exit-exam {
+        padding: 0 7px;
+    }
+
+    .exit-exam > span:last-child {
+        display: none;
+    }
+}
+
+
+/* =========================================================
+   3.4 — EXIT CONFIRMATION MODAL
+========================================================= */
+
+.exit-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transition:
+        opacity .2s ease,
+        visibility .2s ease;
+}
+
+.exit-modal.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.exit-modal-backdrop {
+    position: absolute;
+    inset: 0;
+
+    background: rgba(2,6,23,.72);
+
+    backdrop-filter: blur(9px);
+}
+
+.exit-modal-card {
+    position: relative;
+    z-index: 2;
+
+    width: min(430px, 100%);
+
+    padding: 27px;
+
+    border-radius: 24px;
+
+    border: 1px solid rgba(148,163,184,.13);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(20,29,52,.98),
+            rgba(8,14,29,.98)
+        );
+
+    box-shadow:
+        0 30px 90px rgba(0,0,0,.45),
+        inset 0 1px rgba(255,255,255,.045);
+
+    text-align: center;
+
+    transform: translateY(12px) scale(.97);
+
+    transition:
+        transform .22s ease;
+}
+
+.exit-modal.open .exit-modal-card {
+    transform: translateY(0) scale(1);
+}
+
+.exit-modal-icon {
+    width: 54px;
+    height: 54px;
+
+    margin: 0 auto 17px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 17px;
+
+    background: rgba(245,158,11,.09);
+
+    border: 1px solid rgba(245,158,11,.18);
+
+    color: #fbbf24;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 28px;
+    font-weight: 800;
+
+    box-shadow:
+        0 0 30px rgba(245,158,11,.07);
+}
+
+.exit-modal-content h2 {
+    margin: 0;
+
+    color: #f8fafc;
+
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.exit-modal-content p {
+    margin: 10px auto 0;
+
+    max-width: 340px;
+
+    color: #64748b;
+
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.exit-modal-actions {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 10px;
+
+    margin-top: 24px;
+}
+
+.exit-modal-actions button {
+    min-height: 50px;
+
+    border-radius: 14px;
+
+    font-family:
+        "Noto Sans Arabic",
+        Arial,
+        sans-serif;
+
+    font-size: 12px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition:
+        transform .18s ease,
+        background .18s ease,
+        border-color .18s ease;
+}
+
+.exit-modal-no {
+    border: 1px solid rgba(129,140,248,.18);
+
+    background: rgba(99,102,241,.10);
+
+    color: #c7d2fe;
+}
+
+.exit-modal-no:hover {
+    transform: translateY(-2px);
+
+    background: rgba(99,102,241,.16);
+
+    border-color: rgba(129,140,248,.32);
+}
+
+.exit-modal-yes {
+    border: 1px solid rgba(248,113,113,.16);
+
+    background: rgba(239,68,68,.07);
+
+    color: #fca5a5;
+}
+
+.exit-modal-yes:hover {
+    transform: translateY(-2px);
+
+    background: rgba(239,68,68,.13);
+
+    border-color: rgba(248,113,113,.30);
+}
+
+@media (max-width: 650px) {
+
+    .exit-modal {
+        padding: 16px;
+    }
+
+    .exit-modal-card {
+        padding: 23px 18px 18px;
+
+        border-radius: 21px;
+    }
+
+    .exit-modal-content h2 {
+        font-size: 20px;
+    }
+
+    .exit-modal-content p {
+        font-size: 12px;
+    }
+
+    .exit-modal-actions button {
+        min-height: 49px;
+        font-size: 11px;
+    }
+}
+
+/* Speaker press feedback */
+.speaker.speaking {
+    color: #a5f3fc;
+
+    border-color: rgba(103,232,249,.48);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(34,211,238,.18),
+            rgba(99,102,241,.14)
+        );
+
+    box-shadow:
+        0 0 0 4px rgba(34,211,238,.06),
+        0 12px 35px rgba(34,211,238,.14);
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg-grid"></div>
+<div class="glow one"></div>
+<div class="glow two"></div>
+
+<div class="app">
+
+<!-- =====================================================
+     MODE SCREEN
+===================================================== -->
+
+<!-- =====================================================
+     MODE SCREEN — NEW DESIGN
+===================================================== -->
+
+<section class="mode-screen" id="modeScreen">
+
+    <div class="mode-container">
+
+        <div class="hero">
+
+            <div class="hero-logo">
+                <svg viewBox="0 0 64 64" aria-hidden="true">
+                    <defs>
+                        <linearGradient id="brainGradient"
+                            x1="0%" y1="0%"
+                            x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#818cf8"/>
+                            <stop offset="100%" stop-color="#22d3ee"/>
+                        </linearGradient>
+                    </defs>
+
+                    <path
+                        d="M25 11c-7 0-12 5-12 12 0 2 .5 4 1.4 5.7
+                           C10.8 31 9 35 10 39c1 4.4 4.5 7.5 8.8 8
+                           C20 53 24 56 29 56c2 0 4-.7 5.5-2
+                           C36 55.3 38 56 40 56c5 0 9-3 10.2-7.2
+                           C54.5 48 58 44.5 58 40c0-3.4-1.8-6.4-4.5-8.3
+                           C54.4 30 55 28 55 25c0-7-5-12-12-12
+                           -3.2 0-6.1 1.2-8.3 3.2C32.5 12.2 29 11 25 11Z"
+                        fill="url(#brainGradient)"
+                        opacity=".95"/>
+
+                    <path
+                        d="M32 17v37M21 22c4 1 6 4 6 8M19 35c5 0 8 3 8 7
+                           M43 22c-4 1-6 4-6 8M45 35c-5 0-8 3-8 7"
+                        fill="none"
+                        stroke="white"
+                        stroke-width="2.2"
+                        stroke-linecap="round"
+                        opacity=".75"/>
+                </svg>
+            </div>
+
+            <div class="hero-eyebrow">
+                <span></span>
+                VOCABULARY TRAINING
+                <span></span>
+            </div>
+
+            <h1>
+                Vocabulary
+                <strong>Master</strong>
+            </h1>
+
+            <p>
+                اختبر مستواك في الكلمات
+            </p>
+
+            <div class="word-count">
+                <span class="count-number" id="vocabCount">0</span>
+                <span>WORDS</span>
+                <i></i>
+                <span>3 MODES</span>
+            </div>
+
+        </div>
+
+
+        <div class="mode-cards">
+
+            <!-- Arabic → English -->
+
+            <button
+                class="mode-card primary-mode"
+                onclick="startExam('ar-en')">
+
+                <div class="card-glow"></div>
+
+                <div class="mode-icon icon-brain">
+
+                    <svg viewBox="0 0 64 64">
+                        <path
+                            d="M25 11c-7 0-12 5-12 12 0 2 .5 4 1.4 5.7
+                            C10.8 31 9 35 10 39c1 4.4 4.5 7.5 8.8 8
+                            C20 53 24 56 29 56c2 0 4-.7 5.5-2
+                            C36 55.3 38 56 40 56c5 0 9-3 10.2-7.2
+                            C54.5 48 58 44.5 58 40c0-3.4-1.8-6.4-4.5-8.3
+                            C54.4 30 55 28 55 25c0-7-5-12-12-12
+                            -3.2 0-6.1 1.2-8.3 3.2C32.5 12.2 29 11 25 11Z"
+                            fill="currentColor"/>
+
+                        <path
+                            d="M32 17v37M21 22c4 1 6 4 6 8M19 35c5 0 8 3 8 7
+                            M43 22c-4 1-6 4-6 8M45 35c-5 0-8 3-8 7"
+                            fill="none"
+                            stroke="white"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            opacity=".75"/>
+                    </svg>
+
+                </div>
+
+                <div class="mode-info">
+
+                    <div class="mode-number">
+                        01
+                    </div>
+
+                    <h2>
+                        Arabic
+                        <span>→</span>
+                        English
+                    </h2>
+
+                    <p>
+                        شوف العربي واكتب المعنى بالإنجليزي
+                    </p>
+
+                </div>
+
+                <div class="mode-arrow">
+                    →
+                </div>
+
+            </button>
+
+
+            <!-- English → Arabic -->
+
+            <button
+                class="mode-card"
+                onclick="startExam('en-ar')">
+
+                <div class="card-glow"></div>
+
+                <div class="mode-icon icon-english">
+
+                    <svg viewBox="0 0 64 64">
+
+                        <rect
+                            x="9"
+                            y="15"
+                            width="46"
+                            height="34"
+                            rx="7"
+                            fill="currentColor"/>
+
+                        <path
+                            d="M18 25h28M18 32h20M18 39h15"
+                            stroke="white"
+                            stroke-width="3"
+                            stroke-linecap="round"
+                            opacity=".8"/>
+
+                    </svg>
+
+                </div>
+
+                <div class="mode-info">
+
+                    <div class="mode-number">
+                        02
+                    </div>
+
+                    <h2>
+                        English
+                        <span>→</span>
+                        Arabic
+                    </h2>
+
+                    <p>
+                        شوف الإنجليزي واكتب المعنى بالعربي
+                    </p>
+
+                </div>
+
+                <div class="mode-arrow">
+                    →
+                </div>
+
+            </button>
+
+
+            <!-- Mixed -->
+
+            <button
+                class="mode-card"
+                onclick="startExam('mixed')">
+
+                <div class="card-glow"></div>
+
+                <div class="mode-icon icon-mixed">
+
+                    <svg viewBox="0 0 64 64">
+
+                        <path
+                            d="M14 19h13c9 0 8 12 16 12h7"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="5"
+                            stroke-linecap="round"/>
+
+                        <path
+                            d="M45 25l7 6-7 6"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"/>
+
+                        <path
+                            d="M14 45h13c9 0 8-12 16-12h7"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="5"
+                            stroke-linecap="round"/>
+
+                        <path
+                            d="M19 39l-7 6 7 6"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"/>
+
+                    </svg>
+
+                </div>
+
+                <div class="mode-info">
+
+                    <div class="mode-number">
+                        03
+                    </div>
+
+                    <h2>
+                        Mixed
+                        <span>Mode</span>
+                    </h2>
+
+                    <p>
+                        نصف الاختبار عربي → إنجليزي + النصف الآخر إنجليزي → عربي
+                    </p>
+
+                </div>
+
+                <div class="mode-arrow">
+                    →
+                </div>
+
+            </button>
+
+        </div>
+
+
+        <div class="hero-footer">
+            <span>CHOOSE YOUR MODE</span>
+            <span class="footer-line"></span>
+            <span>START WHEN READY</span>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     EXAM SCREEN
+===================================================== -->
+
+<section class="exam-screen" id="examScreen">
+
+    <div class="exam">
+
+        <aside class="sidebar">
+
+            <div class="sidebar-title">
+
+                <h3>الأسئلة</h3>
+
+                <span class="counter" id="sideCounter">
+                    1 / 28
+                </span>
+
+            </div>
+
+            <div class="question-grid" id="questionGrid"></div>
+
+        </aside>
+
+
+        <main class="main">
+
+            <div class="exam-card">
+
+                <div class="exam-top">
+
+                    <div class="exam-top-right">
+
+                        <div class="mode-badge" id="modeBadge">
+                            🧠 عربي → إنجليزي
+                        </div>
+
+                        <div class="progress-text" id="progressText">
+                            السؤال 1 من 28
+                        </div>
+
+                    </div>
+
+                    <button
+                        class="exit-exam"
+                        onclick="showExitConfirm()"
+                        type="button"
+                        title="الخروج والعودة لاختيار طريقة أخرى">
+
+                        <span class="exit-icon">×</span>
+                        <span>خروج</span>
+
+                    </button>
+
+                </div>
+
+
+                <div class="question-area">
+
+                    <div class="question-label">
+                        اكتب الترجمة:
+                    </div>
+
+                    <div
+                        class="question-text"
+                        id="questionText">
+                    </div>
+
+                    <button
+                        class="speaker"
+                        id="speakerBtn"
+                        onclick="speakCurrent()"
+                        title="النطق الإنجليزي">
+
+                        🔊
+
+                    </button>
+
+                </div>
+
+
+                <div class="answer-area">
+
+                    <input
+                        type="text"
+                        id="answerInput"
+                        class="answer-input"
+                        autocomplete="off"
+                        autocapitalize="off"
+                        spellcheck="false"
+                        placeholder="اكتب إجابتك هنا..."
+                    >
+
+                    <div class="actions">
+
+                        <button
+                            class="btn btn-secondary"
+                            onclick="skipQuestion()">
+
+                            تخطي
+
+                        </button>
+
+                        <button
+                            class="btn btn-primary"
+                            onclick="submitAnswer()">
+
+                            تأكيد الإجابة
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     RESULTS
+===================================================== -->
+
+<section class="results-screen" id="resultsScreen">
+
+    <div class="results">
+
+        <div class="result-icon">
+            🏆
+        </div>
+
+        <h1>خلصت الاختبار 🎉</h1>
+
+        <p class="result-subtitle">
+            دي نتيجتك النهائية
+        </p>
+
+
+        <div class="score-card">
+
+            <div
+                class="score-number"
+                id="finalScore">
+                0 / 28
+            </div>
+
+            <div
+                class="score-percent"
+                id="finalPercent">
+                0%
+            </div>
+
+
+            <div
+                class="direction-scores"
+                id="directionScores">
+
+            </div>
+
+        </div>
+
+
+        <div class="stats-card" id="statsCard">
+
+            <div class="stats-card-title">📊 إحصائياتك</div>
+
+            <div class="stats-grid">
+
+                <div class="stat-box">
+                    <span class="stat-label">المحاولات</span>
+                    <strong id="statAttempts">0</strong>
+                </div>
+
+                <div class="stat-box">
+                    <span class="stat-label">أفضل نتيجة</span>
+                    <strong id="statBest">0%</strong>
+                </div>
+
+                <div class="stat-box">
+                    <span class="stat-label">متوسط النتائج</span>
+                    <strong id="statAverage">0%</strong>
+                </div>
+
+                <div class="stat-box">
+                    <span class="stat-label">آخر نتيجة</span>
+                    <strong id="statLast">0%</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="result-list"
+            id="resultList">
+        </div>
+
+
+        <button
+            class="btn btn-primary restart"
+            onclick="location.reload()">
+
+            🔄 إعادة الاختبار
+
+        </button>
+
+    </div>
+
+</section>
+
+</div>
+
+
+<!-- =====================================================
+     EXIT CONFIRMATION MODAL
+===================================================== -->
+
+<div class="exit-modal" id="exitModal" aria-hidden="true">
+
+    <div class="exit-modal-backdrop" onclick="hideExitConfirm()"></div>
+
+    <div class="exit-modal-card" role="dialog" aria-modal="true" aria-labelledby="exitModalTitle">
+
+        <div class="exit-modal-icon">
+            !
+        </div>
+
+        <div class="exit-modal-content">
+
+            <h2 id="exitModalTitle">
+                هل أنت متأكد من الخروج من الاختبار؟
+            </h2>
+
+            <p>
+                هتخرج من الاختبار الحالي وترجع لاختيار طريقة امتحان تانية.
+            </p>
+
+        </div>
+
+        <div class="exit-modal-actions">
+
+            <button
+                class="exit-modal-no"
+                type="button"
+                onclick="hideExitConfirm()">
+
+                لا، أكمل الاختبار
+
+            </button>
+
+            <button
+                class="exit-modal-yes"
+                type="button"
+                onclick="confirmExitExam()">
+
+                نعم، اخرج
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+/* =========================================================
+   VOCABULARY — DYNAMIC ITEM COUNT
+========================================================= */
+
+const vocabulary = [
+
+    {
+        ar: "يعيد",
+        en: "bring back"
+    },
+
+    {
+        ar: "يضئ بالأمل",
+        en: "light up"
+    },
+
+    {
+        ar: "لامس وجوههم",
+        en: "touched their faces"
+    },
+
+    {
+        ar: "عبء",
+        en: "burden"
+    },
+
+    {
+        ar: "ابتسم ابتسامة خفيفة",
+        en: "lips curled into a thin smile"
+    },
+
+    {
+        ar: "غير مدرك للكراهية",
+        en: "unaware of the hatred"
+    },
+
+    {
+        ar: "حمل أخبارًا سارة",
+        en: "carried good news"
+    },
+
+    {
+        ar: "أضاء بأمل قاس",
+        en: "lit with cruel hope"
+    },
+
+    {
+        ar: "يسير عبر",
+        en: "walk through"
+    },
+
+    {
+        ar: "قبض يديه",
+        en: "clenched his fists"
+    },
+
+    {
+        ar: "مخلص",
+        en: "loyal"
+    },
+
+    {
+        ar: "لا ينقصه شيء",
+        en: "want for nothing"
+    },
+
+    {
+        ar: "احتمالات لا تنتهي",
+        en: "endless possibilities"
+    },
+
+    {
+        ar: "يضع خطة/ يؤلف",
+        en: "make up"
+    },
+
+    {
+        ar: "همس برقة",
+        en: "whispered softly"
+    },
+
+    {
+        ar: "مساعد أول في واحدة من أرقى السفن",
+        en: "first mate of one of the finest ships"
+    },
+
+    {
+        ar: "تمتم مع نفسه",
+        en: "muttered to himself"
+    },
+
+    {
+        ar: "بسرعة",
+        en: "with speed"
+    },
+
+    {
+        ar: "دق قلبه بسرعة",
+        en: "heart beat faster"
+    },
+
+    {
+        ar: "ينزلق نحو الظلام",
+        en: "slipping into darkness"
+    },
+
+    {
+        ar: "كلمات مليئة بالشر",
+        en: "words heavy with malice"
+    },
+
+    {
+        ar: "عانقه بشدة",
+        en: "held him tightly"
+    },
+
+    {
+        ar: "تحدثوا عنه باحترام",
+        en: "spoke of him with respect"
+    },
+
+    {
+        ar: "يكتب",
+        en: "write down"
+    },
+
+    {
+        ar: "يمسك/ يمسك بشدة",
+        en: "hold on"
+    },
+
+    {
+        ar: "تجمد من الصدمة",
+        en: "stood frozen with shock"
+    },
+
+    {
+        ar: "يتكئ على",
+        en: "lean on"
+    },
+
+    {
+        ar: "دموع في عينيه",
+        en: "tears in his eyes"
+    }
+
+];
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let mode = null;
+
+let questions = [];
+
+let currentIndex = 0;
+
+let answered = [];
+
+let results = [];
+
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const modeScreen =
+    document.getElementById("modeScreen");
+
+const examScreen =
+    document.getElementById("examScreen");
+
+const resultsScreen =
+    document.getElementById("resultsScreen");
+
+const questionText =
+    document.getElementById("questionText");
+
+const answerInput =
+    document.getElementById("answerInput");
+
+const questionGrid =
+    document.getElementById("questionGrid");
+
+const progressText =
+    document.getElementById("progressText");
+
+const sideCounter =
+    document.getElementById("sideCounter");
+
+const modeBadge =
+    document.getElementById("modeBadge");
+
+const vocabularyCount =
+    document.getElementById("vocabCount");
+
+if (vocabularyCount) {
+    vocabularyCount.textContent =
+        vocabulary.length;
+}
+
+
+const speakerButton =
+    document.getElementById("speakerBtn");
+
+function setSpeakerVisibility(visible) {
+
+    if (!speakerButton) return;
+
+    speakerButton.hidden = !visible;
+
+    speakerButton.setAttribute(
+        "aria-hidden",
+        visible ? "false" : "true"
+    );
+
+    speakerButton.tabIndex =
+        visible ? 0 : -1;
+
+    if (!visible) {
+
+        stopCurrentAudio();
+
+        if ("speechSynthesis" in window) {
+            window.speechSynthesis.cancel();
+        }
+    }
+}
+
+
+/* =========================================================
+   START EXAM
+========================================================= */
+
+function shuffleArray(array) {
+
+    const shuffled = [...array];
+
+    for (let i = shuffled.length - 1; i > 0; i--) {
+
+        const j =
+            Math.floor(Math.random() * (i + 1));
+
+        [shuffled[i], shuffled[j]] =
+            [shuffled[j], shuffled[i]];
+    }
+
+    return shuffled;
+}
+
+
+function startExam(selectedMode) {
+
+    mode = selectedMode;
+
+    /*
+       Every supported mode is an exam mode.
+       The speaker is therefore unavailable for the entire exam.
+    */
+    setSpeakerVisibility(false);
+
+    currentIndex = 0;
+
+    answered = [];
+
+    results = [];
+
+    /*
+       IMPORTANT:
+       The vocabulary keeps the exact source order in the
+       vocabulary array, but the exam itself is randomized
+       every time it starts.
+    */
+
+    const shuffledVocabulary =
+        shuffleArray(vocabulary);
+
+
+    if (mode === "ar-en") {
+
+        questions =
+            shuffledVocabulary.map(item => ({
+                ...item,
+                direction: "ar-en"
+            }));
+
+    }
+
+    else if (mode === "en-ar") {
+
+        questions =
+            shuffledVocabulary.map(item => ({
+                ...item,
+                direction: "en-ar"
+            }));
+
+    }
+
+    else {
+
+        /*
+           Split the current vocabulary as evenly as possible.
+           With 28 items this remains exactly 14 + 14, while
+           future vocabularies can be smaller or larger.
+        */
+
+        const splitIndex =
+            Math.ceil(shuffledVocabulary.length / 2);
+
+        const arEn =
+            shuffledVocabulary
+            .slice(0, splitIndex)
+            .map(item => ({
+                ...item,
+                direction: "ar-en"
+            }));
+
+        const enAr =
+            shuffledVocabulary
+            .slice(splitIndex)
+            .map(item => ({
+                ...item,
+                direction: "en-ar"
+            }));
+
+        questions =
+            shuffleArray([
+                ...arEn,
+                ...enAr
+            ]);
+    }
+
+
+    answered =
+        new Array(questions.length).fill(false);
+
+
+    modeScreen.style.display = "none";
+
+    examScreen.style.display = "block";
+
+    resultsScreen.style.display = "none";
+
+
+    createQuestionGrid();
+
+    showQuestion();
+}
+
+
+/* =========================================================
+   EXIT EXAM
+========================================================= */
+
+function showExitConfirm() {
+
+    const modal =
+        document.getElementById("exitModal");
+
+    if (!modal) return;
+
+    modal.classList.add("open");
+
+    modal.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
+    /*
+       Put focus on the safe option so an accidental
+       keyboard action cannot immediately confirm exit.
+    */
+
+    const noButton =
+        modal.querySelector(".exit-modal-no");
+
+    if (noButton) {
+        setTimeout(() => noButton.focus(), 30);
+    }
+}
+
+
+function hideExitConfirm() {
+
+    const modal =
+        document.getElementById("exitModal");
+
+    if (!modal) return;
+
+    modal.classList.remove("open");
+
+    modal.setAttribute(
+        "aria-hidden",
+        "true"
+    );
+}
+
+
+function confirmExitExam() {
+
+    setSpeakerVisibility(false);
+
+    hideExitConfirm();
+
+    if ("speechSynthesis" in window) {
+
+        speechSynthesis.cancel();
+    }
+
+    const speaker =
+        document.getElementById("speakerBtn");
+
+    if (speaker) {
+        speaker.classList.remove("speaking");
+    }
+
+    mode = null;
+
+    questions = [];
+
+    currentIndex = 0;
+
+    answered = [];
+
+    results = [];
+
+    examScreen.style.display = "none";
+
+    resultsScreen.style.display = "none";
+
+    modeScreen.style.display = "flex";
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+function exitExam() {
+
+    /*
+       Kept as a compatibility wrapper.
+       New exit clicks use the confirmation modal.
+    */
+
+    showExitConfirm();
+}
+
+
+/*
+   ESC closes the confirmation dialog instead of exiting.
+*/
+document.addEventListener("keydown", event => {
+
+    if (event.key === "Escape") {
+
+        const modal =
+            document.getElementById("exitModal");
+
+        if (modal && modal.classList.contains("open")) {
+            hideExitConfirm();
+        }
+    }
+});
+
+
+/* =========================================================
+   QUESTION GRID
+========================================================= */
+
+function createQuestionGrid() {
+
+    questionGrid.innerHTML = "";
+
+    questions.forEach((_, index) => {
+
+        const btn =
+            document.createElement("div");
+
+        btn.className = "q-number";
+
+        btn.textContent = index + 1;
+
+        btn.onclick = () => {
+
+            if (answered[index]) {
+
+                currentIndex = index;
+
+                showQuestion();
+
+            }
+
+        };
+
+        questionGrid.appendChild(btn);
+    });
+}
+
+
+/* =========================================================
+   SHOW QUESTION
+========================================================= */
+
+function showQuestion() {
+
+    stopCurrentAudio();
+
+    const q =
+        questions[currentIndex];
+
+    if (!q) return;
+
+
+    /*
+       Update grid
+    */
+
+    [...questionGrid.children]
+        .forEach((el, i) => {
+
+            el.classList.remove("current");
+
+            if (i === currentIndex) {
+
+                el.classList.add("current");
+
+                /*
+                   Keep current question visible
+                   on mobile.
+                */
+
+                if (window.innerWidth <= 850) {
+
+                    el.scrollIntoView({
+                        behavior: "smooth",
+                        inline: "center",
+                        block: "nearest"
+                    });
+
+                }
+            }
+
+        });
+
+
+    /*
+       Update progress
+    */
+
+    progressText.textContent =
+        `السؤال ${currentIndex + 1} من ${questions.length}`;
+
+    sideCounter.textContent =
+        `${currentIndex + 1} / ${questions.length}`;
+
+
+    /*
+       Direction
+    */
+
+    if (q.direction === "ar-en") {
+
+        modeBadge.textContent =
+            "🧠 عربي → إنجليزي";
+
+        questionText.textContent =
+            q.ar;
+
+        questionText.classList.remove("english");
+
+        answerInput.classList.add("english-input");
+
+        answerInput.placeholder =
+            "اكتب الترجمة بالإنجليزي...";
+
+    }
+
+    else {
+
+        modeBadge.textContent =
+            "🇬🇧 إنجليزي → عربي";
+
+        questionText.textContent =
+            q.en;
+
+        questionText.classList.add("english");
+
+        answerInput.classList.remove("english-input");
+
+        answerInput.placeholder =
+            "اكتب الترجمة بالعربي...";
+    }
+
+
+    answerInput.value = "";
+
+    answerInput.focus();
+}
+
+
+/* =========================================================
+   SUBMIT
+========================================================= */
+
+function submitAnswer() {
+
+    const q =
+        questions[currentIndex];
+
+    const userAnswer =
+        answerInput.value.trim();
+
+    if (!userAnswer) {
+
+        answerInput.focus();
+
+        return;
+    }
+
+
+    const correctAnswer =
+        q.direction === "ar-en"
+            ? q.en
+            : q.ar;
+
+
+    let correct = false;
+
+    if (q.direction === "ar-en") {
+
+        correct =
+            normalizeEnglish(userAnswer) ===
+            normalizeEnglish(correctAnswer);
+
+    }
+
+    else {
+
+        correct =
+            normalizeArabic(userAnswer) ===
+            normalizeArabic(correctAnswer);
+    }
+
+
+    results[currentIndex] = {
+
+        ...q,
+
+        userAnswer,
+
+        correctAnswer,
+
+        correct
+    };
+
+
+    answered[currentIndex] = true;
+
+
+    updateQuestionStatus(
+        currentIndex,
+        correct
+    );
+
+
+    /*
+       Find next unanswered question
+    */
+
+    let next = -1;
+
+    for (
+        let i = 1;
+        i <= questions.length;
+        i++
+    ) {
+
+        const index =
+            (currentIndex + i) %
+            questions.length;
+
+        if (!answered[index]) {
+
+            next = index;
+
+            break;
+        }
+    }
+
+
+    if (next === -1) {
+
+        finishExam();
+
+        return;
+    }
+
+
+    currentIndex = next;
+
+    showQuestion();
+}
+
+
+/* =========================================================
+   SKIP
+========================================================= */
+
+function skipQuestion() {
+
+    let next = -1;
+
+    for (
+        let i = 1;
+        i <= questions.length;
+        i++
+    ) {
+
+        const index =
+            (currentIndex + i) %
+            questions.length;
+
+        if (!answered[index]) {
+
+            next = index;
+
+            break;
+        }
+    }
+
+
+    if (next !== -1) {
+
+        currentIndex = next;
+
+        showQuestion();
+
+    }
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+function updateQuestionStatus(index, correct) {
+
+    const el =
+        questionGrid.children[index];
+
+    if (!el) return;
+
+    el.classList.remove(
+        "current",
+        "correct",
+        "wrong"
+    );
+
+    el.classList.add(
+        correct
+            ? "correct"
+            : "wrong"
+    );
+}
+
+
+/* =========================================================
+   NORMALIZATION
+========================================================= */
+
+function normalizeEnglish(text) {
+
+    return text
+        .toLowerCase()
+        .trim()
+        .replace(/\s+/g, " ");
+}
+
+
+function normalizeArabic(text) {
+
+    return text
+        .trim()
+        .replace(/[\u064B-\u065F\u0670]/g, "")
+        .replace(/\s+/g, " ");
+}
+
+
+/* =========================================================
+   ENGLISH ERROR ANALYZER
+========================================================= */
+
+function analyzeEnglish(user, correct) {
+
+    const u =
+        normalizeEnglish(user)
+        .replace(/\\s/g, "");
+
+    const c =
+        normalizeEnglish(correct)
+        .replace(/\\s/g, "");
+
+    if (u === c) {
+        return "الإجابة صحيحة تمامًا.";
+    }
+
+    /*
+       First detect a clean adjacent swap. This gives a much
+       more useful explanation than treating the two letters
+       as unrelated edits.
+    */
+    if (u.length === c.length) {
+
+        for (let i = 0; i < c.length - 1; i++) {
+
+            if (
+                u[i] === c[i + 1] &&
+                u[i + 1] === c[i]
+            ) {
+
+                let sameBefore = true;
+                let sameAfter = true;
+
+                for (let j = 0; j < i; j++) {
+                    if (u[j] !== c[j]) {
+                        sameBefore = false;
+                        break;
+                    }
+                }
+
+                for (let j = i + 2; j < c.length; j++) {
+                    if (u[j] !== c[j]) {
+                        sameAfter = false;
+                        break;
+                    }
+                }
+
+                if (sameBefore && sameAfter) {
+
+                    return (
+                        `🔄 حرفين متبدلين في الترتيب: "${u[i]}${u[i + 1]}" بدل "${c[i]}${c[i + 1]}".`
+                    );
+                }
+            }
+        }
+    }
+
+    const alignment =
+        alignEnglish(u, c);
+
+    const missing = [];
+    const extra = [];
+    const wrong = [];
+
+    alignment.forEach(op => {
+
+        if (op.type === "missing") {
+            missing.push(op.correct);
+        }
+
+        else if (op.type === "extra") {
+            extra.push(op.user);
+        }
+
+        else if (op.type === "wrong") {
+            wrong.push(`"${op.user}"→"${op.correct}"`);
+        }
+    });
+
+    const distance =
+        levenshtein(u, c);
+
+    const parts = [
+        `❌ فيه ${distance} تعديل${distance === 1 ? "" : "ات"} تقريبًا.`
+    ];
+
+    if (missing.length) {
+        parts.push(`➕ حروف ناقصة: ${[...new Set(missing)].join(", ")}.`);
+    }
+
+    if (extra.length) {
+        parts.push(`➖ حروف زيادة: ${[...new Set(extra)].join(", ")}.`);
+    }
+
+    if (wrong.length) {
+        parts.push(`🔤 حروف مكتوبة غلط: ${wrong.join("، ")}.`);
+    }
+
+    if (
+        !missing.length &&
+        !extra.length &&
+        !wrong.length
+    ) {
+        parts.push("راجع ترتيب الحروف والتهجئة.");
+    }
+
+    return parts.join("\n");
+}
+
+
+/* =========================================================
+   ENGLISH ALIGNMENT
+   Uses dynamic programming to identify the actual edit
+   path instead of only comparing which characters exist.
+========================================================= */
+
+function alignEnglish(user, correct) {
+
+    const rows = correct.length + 1;
+    const cols = user.length + 1;
+
+    const matrix =
+        Array.from(
+            { length: rows },
+            () => Array(cols).fill(0)
+        );
+
+    for (let i = 0; i < rows; i++) {
+        matrix[i][0] = i;
+    }
+
+    for (let j = 0; j < cols; j++) {
+        matrix[0][j] = j;
+    }
+
+    for (let i = 1; i < rows; i++) {
+
+        for (let j = 1; j < cols; j++) {
+
+            const substitution =
+                matrix[i - 1][j - 1] +
+                (correct[i - 1] === user[j - 1] ? 0 : 1);
+
+            const insertion =
+                matrix[i][j - 1] + 1;
+
+            const deletion =
+                matrix[i - 1][j] + 1;
+
+            matrix[i][j] =
+                Math.min(
+                    substitution,
+                    insertion,
+                    deletion
+                );
+        }
+    }
+
+    const operations = [];
+
+    let i = correct.length;
+    let j = user.length;
+
+    while (i > 0 || j > 0) {
+
+        if (
+            i > 0 &&
+            j > 0 &&
+            correct[i - 1] === user[j - 1] &&
+            matrix[i][j] === matrix[i - 1][j - 1]
+        ) {
+
+            i--;
+            j--;
+            continue;
+        }
+
+        if (
+            i > 0 &&
+            j > 0 &&
+            matrix[i][j] === matrix[i - 1][j - 1] + 1
+        ) {
+
+            operations.unshift({
+                type: "wrong",
+                user: user[j - 1],
+                correct: correct[i - 1]
+            });
+
+            i--;
+            j--;
+            continue;
+        }
+
+        if (
+            j > 0 &&
+            matrix[i][j] === matrix[i][j - 1] + 1
+        ) {
+
+            operations.unshift({
+                type: "extra",
+                user: user[j - 1]
+            });
+
+            j--;
+            continue;
+        }
+
+        operations.unshift({
+            type: "missing",
+            correct: correct[i - 1]
+        });
+
+        i--;
+    }
+
+    return operations;
+}
+
+
+/* =========================================================
+   LEVENSHTEIN
+========================================================= */
+
+function levenshtein(a, b) {
+
+    const matrix =
+        Array.from(
+            { length: b.length + 1 },
+            () => Array(a.length + 1).fill(0)
+        );
+
+
+    for (let i = 0; i <= b.length; i++) {
+
+        matrix[i][0] = i;
+    }
+
+
+    for (let j = 0; j <= a.length; j++) {
+
+        matrix[0][j] = j;
+    }
+
+
+    for (let i = 1; i <= b.length; i++) {
+
+        for (let j = 1; j <= a.length; j++) {
+
+            if (b[i - 1] === a[j - 1]) {
+
+                matrix[i][j] =
+                    matrix[i - 1][j - 1];
+
+            }
+
+            else {
+
+                matrix[i][j] =
+                    Math.min(
+
+                        matrix[i - 1][j] + 1,
+
+                        matrix[i][j - 1] + 1,
+
+                        matrix[i - 1][j - 1] + 1
+                    );
+            }
+        }
+    }
+
+
+    return matrix[b.length][a.length];
+}
+
+
+/* =========================================================
+   SPEAKER — GENERATED STATIC AUDIO FIRST
+========================================================= */
+
+/*
+   Primary path:
+   generated MP3 files in /audio.
+
+   The filename is derived from the English phrase, so:
+   - same phrase => same audio file
+   - changed phrase => new audio file
+   - removed phrase => its old audio file is deleted by the
+     GitHub Action that synchronizes the vocabulary.
+
+   Native SpeechSynthesis remains only as a temporary fallback.
+*/
+
+let currentAudio = null;
+let availableVoices = [];
+
+const AUDIO_VERSION = "v5";
+
+function normalizeAudioText(text) {
+
+    return String(text)
+        .toLowerCase()
+        .trim()
+        .replace(/\s+/g, " ");
+}
+
+
+function audioHash(text) {
+
+    const normalized =
+        normalizeAudioText(text) +
+        "|en|normal|" +
+        AUDIO_VERSION;
+
+    let h1 = 0x811c9dc5;
+    let h2 = 0x9e3779b9;
+
+    for (let i = 0; i < normalized.length; i++) {
+
+        const code =
+            normalized.charCodeAt(i);
+
+        h1 =
+            Math.imul(
+                h1 ^ code,
+                0x01000193
+            );
+
+        h2 =
+            Math.imul(
+                h2 ^ (code + i + 1),
+                0x85ebca6b
+            );
+    }
+
+    h1 = Math.imul(
+        h1 ^ (h1 >>> 16),
+        0x7feb352d
+    );
+
+    h1 = Math.imul(
+        h1 ^ (h1 >>> 15),
+        0x846ca68b
+    );
+
+    h2 = Math.imul(
+        h2 ^ (h2 >>> 16),
+        0x7feb352d
+    );
+
+    h2 = Math.imul(
+        h2 ^ (h2 >>> 15),
+        0x846ca68b
+    );
+
+    return (
+        (h1 >>> 0).toString(16).padStart(8, "0") +
+        (h2 >>> 0).toString(16).padStart(8, "0")
+    );
+}
+
+
+function getGeneratedAudioUrl(text) {
+
+    return "audio/" +
+        audioHash(text) +
+        ".mp3";
+}
+
+
+function updateSpeakerState(speaker, speaking) {
+
+    if (!speaker) return;
+
+    speaker.classList.toggle(
+        "speaking",
+        speaking
+    );
+
+    speaker.setAttribute(
+        "aria-label",
+        speaking
+            ? "إيقاف النطق"
+            : "تشغيل النطق الإنجليزي"
+    );
+}
+
+
+function stopCurrentAudio() {
+
+    if (!currentAudio) return;
+
+    try {
+
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+
+    }
+    catch (error) {
+
+        console.warn(
+            "Could not stop generated audio:",
+            error
+        );
+    }
+
+    currentAudio.src = "";
+    currentAudio = null;
+
+    updateSpeakerState(
+        document.getElementById("speakerBtn"),
+        false
+    );
+}
+
+
+function loadSpeechVoices() {
+
+    if (!("speechSynthesis" in window)) {
+
+        availableVoices = [];
+
+        return [];
+    }
+
+    availableVoices =
+        window.speechSynthesis.getVoices() || [];
+
+    return availableVoices;
+}
+
+
+if ("speechSynthesis" in window) {
+
+    loadSpeechVoices();
+
+    window.speechSynthesis.addEventListener(
+        "voiceschanged",
+        loadSpeechVoices
+    );
+}
+
+
+function getEnglishVoice() {
+
+    const voices =
+        availableVoices.length
+            ? availableVoices
+            : loadSpeechVoices();
+
+    if (!voices.length) {
+        return null;
+    }
+
+    return (
+        voices.find(voice =>
+            voice.default &&
+            /^en(-|_)/i.test(voice.lang || "")
+        ) ||
+
+        voices.find(voice =>
+            /^en-US$/i.test(voice.lang || "")
+        ) ||
+
+        voices.find(voice =>
+            /^en-GB$/i.test(voice.lang || "")
+        ) ||
+
+        voices.find(voice =>
+            /^en/i.test(voice.lang || "")
+        ) ||
+
+        null
+    );
+}
+
+
+function speakWithNativeFallback(text, speaker) {
+
+    if (
+        !("speechSynthesis" in window) ||
+        !("SpeechSynthesisUtterance" in window)
+    ) {
+
+        updateSpeakerState(
+            speaker,
+            false
+        );
+
+        alert(
+            "الصوت الجاهز مش متاح حاليًا، والمتصفح كمان لا يدعم النطق الصوتي."
+        );
+
+        return;
+    }
+
+    const synth =
+        window.speechSynthesis;
+
+    synth.cancel();
+    synth.resume();
+    loadSpeechVoices();
+
+    const utterance =
+        new SpeechSynthesisUtterance(text);
+
+    utterance.lang = "en-US";
+    utterance.rate = 0.78;
+    utterance.pitch = 1;
+
+    const voice =
+        getEnglishVoice();
+
+    if (voice) {
+
+        utterance.voice = voice;
+
+        utterance.lang =
+            voice.lang || "en-US";
+    }
+
+    utterance.onstart =
+        () => updateSpeakerState(
+            speaker,
+            true
+        );
+
+    utterance.onend =
+        () => updateSpeakerState(
+            speaker,
+            false
+        );
+
+    utterance.onerror =
+        event => {
+
+            console.warn(
+                "Native speech fallback error:",
+                event && event.error
+                    ? event.error
+                    : "unknown"
+            );
+
+            updateSpeakerState(
+                speaker,
+                false
+            );
+        };
+
+    try {
+
+        synth.speak(
+            utterance
+        );
+
+    }
+    catch (error) {
+
+        console.warn(
+            "Native speech fallback failed:",
+            error
+        );
+
+        updateSpeakerState(
+            speaker,
+            false
+        );
+    }
+}
+
+
+function speakCurrent() {
+
+    const q =
+        questions[currentIndex];
+
+    if (!q) return;
+
+    const text = q.en;
+
+    const speaker =
+        document.getElementById(
+            "speakerBtn"
+        );
+
+    /*
+       Tapping while generated audio is playing
+       stops it.
+    */
+    if (currentAudio) {
+
+        stopCurrentAudio();
+
+        return;
+    }
+
+    /*
+       Stop any previous native fallback before trying
+       the generated MP3.
+    */
+    if ("speechSynthesis" in window) {
+
+        window.speechSynthesis.cancel();
+    }
+
+    updateSpeakerState(
+        speaker,
+        true
+    );
+
+    /*
+       The generated URL is synchronous. That keeps
+       audio.play() inside the user's click.
+    */
+    const audio =
+        new Audio(
+            getGeneratedAudioUrl(text)
+        );
+
+    audio.preload = "auto";
+
+    currentAudio = audio;
+
+    let fallbackStarted = false;
+
+    const cleanup = () => {
+
+        if (currentAudio === audio) {
+
+            currentAudio = null;
+        }
+
+        updateSpeakerState(
+            speaker,
+            false
+        );
+    };
+
+    const fallback = () => {
+
+        if (fallbackStarted) return;
+
+        fallbackStarted = true;
+
+        cleanup();
+
+        console.warn(
+            "Generated audio unavailable; using native TTS fallback."
+        );
+
+        speakWithNativeFallback(
+            text,
+            speaker
+        );
+    };
+
+    audio.onplay = () => {
+
+        updateSpeakerState(
+            speaker,
+            true
+        );
+    };
+
+    audio.onended =
+        cleanup;
+
+    audio.onerror =
+        fallback;
+
+    try {
+
+        const playResult =
+            audio.play();
+
+        if (
+            playResult &&
+            typeof playResult.catch === "function"
+        ) {
+
+            playResult.catch(
+                fallback
+            );
+        }
+
+    }
+    catch (error) {
+
+        console.warn(
+            "Generated audio play failed:",
+            error
+        );
+
+        fallback();
+    }
+}
+
+
+/* =========================================================
+   PERSISTENT STATISTICS
+========================================================= */
+
+const STATS_KEY = "vocabularyMasterStats_v1";
+
+function loadStats() {
+
+    try {
+
+        const saved =
+            localStorage.getItem(STATS_KEY);
+
+        if (!saved) {
+            return {
+                attempts: 0,
+                bestPercent: 0,
+                averagePercent: 0,
+                lastPercent: 0
+            };
+        }
+
+        const stats = JSON.parse(saved);
+
+        return {
+            attempts: Number(stats.attempts) || 0,
+            bestPercent: Number(stats.bestPercent) || 0,
+            averagePercent: Number(stats.averagePercent) || 0,
+            lastPercent: Number(stats.lastPercent) || 0
+        };
+
+    }
+
+    catch (error) {
+
+        console.warn(
+            "Could not load saved statistics:",
+            error
+        );
+
+        return {
+            attempts: 0,
+            bestPercent: 0,
+            averagePercent: 0,
+            lastPercent: 0
+        };
+    }
+}
+
+
+function saveAttemptStats(percent) {
+
+    const current =
+        loadStats();
+
+    const attempts =
+        current.attempts + 1;
+
+    const averagePercent =
+        Math.round(
+            (
+                (current.averagePercent * current.attempts) +
+                percent
+            ) / attempts
+        );
+
+    const updated = {
+
+        attempts,
+
+        bestPercent:
+            Math.max(
+                current.bestPercent,
+                percent
+            ),
+
+        averagePercent,
+
+        lastPercent: percent
+    };
+
+    try {
+
+        localStorage.setItem(
+            STATS_KEY,
+            JSON.stringify(updated)
+        );
+
+    }
+
+    catch (error) {
+
+        console.warn(
+            "Could not save statistics:",
+            error
+        );
+    }
+
+    renderStats(updated);
+
+    return updated;
+}
+
+
+function renderStats(stats = loadStats()) {
+
+    const attempts =
+        document.getElementById("statAttempts");
+
+    const best =
+        document.getElementById("statBest");
+
+    const average =
+        document.getElementById("statAverage");
+
+    const last =
+        document.getElementById("statLast");
+
+    if (attempts) {
+        attempts.textContent =
+            stats.attempts;
+    }
+
+    if (best) {
+        best.textContent =
+            `${stats.bestPercent}%`;
+    }
+
+    if (average) {
+        average.textContent =
+            `${stats.averagePercent}%`;
+    }
+
+    if (last) {
+        last.textContent =
+            `${stats.lastPercent}%`;
+    }
+}
+
+
+renderStats();
+
+
+/* =========================================================
+   FINISH
+========================================================= */
+
+function finishExam() {
+
+    stopCurrentAudio();
+    setSpeakerVisibility(false);
+
+    examScreen.style.display = "none";
+
+    resultsScreen.style.display = "block";
+
+
+    let totalCorrect = 0;
+
+    let arEnCorrect = 0;
+    let arEnTotal = 0;
+
+    let enArCorrect = 0;
+    let enArTotal = 0;
+
+
+    results.forEach(result => {
+
+        if (!result) return;
+
+
+        if (result.correct) {
+
+            totalCorrect++;
+        }
+
+
+        if (result.direction === "ar-en") {
+
+            arEnTotal++;
+
+            if (result.correct) {
+
+                arEnCorrect++;
+            }
+
+        }
+
+        else {
+
+            enArTotal++;
+
+            if (result.correct) {
+
+                enArCorrect++;
+            }
+        }
+
+    });
+
+
+    const total =
+        questions.length;
+
+
+    const percent =
+        Math.round(
+            (totalCorrect / total) * 100
+        );
+
+
+    saveAttemptStats(percent);
+
+
+    document.getElementById(
+        "finalScore"
+    ).textContent =
+        `${totalCorrect} / ${total}`;
+
+
+    document.getElementById(
+        "finalPercent"
+    ).textContent =
+        `${percent}%`;
+
+
+    const directionScores =
+        document.getElementById(
+            "directionScores"
+        );
+
+
+    if (mode === "mixed") {
+
+        directionScores.innerHTML = `
+
+            <div class="direction-card">
+
+                <h3>
+                    🧠 عربي → إنجليزي
+                </h3>
+
+                <div class="direction-score">
+                    ${arEnCorrect} / ${arEnTotal}
+                </div>
+
+            </div>
+
+            <div class="direction-card">
+
+                <h3>
+                    🇬🇧 إنجليزي → عربي
+                </h3>
+
+                <div class="direction-score">
+                    ${enArCorrect} / ${enArTotal}
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
+    else {
+
+        directionScores.innerHTML = "";
+
+    }
+
+
+    renderResults();
+}
+
+
+/* =========================================================
+   RESULT LIST
+========================================================= */
+
+function renderResults() {
+
+    const container =
+        document.getElementById(
+            "resultList"
+        );
+
+    container.innerHTML = "";
+
+    results.forEach((result, index) => {
+
+        if (!result) return;
+
+        const item =
+            document.createElement("div");
+
+        item.className =
+            `result-item ${
+                result.correct
+                    ? "correct"
+                    : "wrong"
+            }`;
+
+        const word =
+            document.createElement("div");
+
+        word.className = "result-word";
+
+        word.textContent =
+            `${index + 1}. ${
+                result.direction === "ar-en"
+                    ? result.ar
+                    : result.en
+            }`;
+
+        const answer =
+            document.createElement("div");
+
+        answer.className = "result-answer";
+
+        const userLabel =
+            document.createTextNode("إجابتك: ");
+
+        const userValue =
+            document.createElement("b");
+
+        userValue.dir =
+            result.direction === "ar-en"
+                ? "ltr"
+                : "rtl";
+
+        userValue.textContent =
+            result.userAnswer ||
+            "لم تتم الإجابة";
+
+        const correctLabel =
+            document.createTextNode("الإجابة الصحيحة: ");
+
+        const correctValue =
+            document.createElement("b");
+
+        correctValue.dir =
+            result.direction === "ar-en"
+                ? "ltr"
+                : "rtl";
+
+        correctValue.textContent =
+            result.correctAnswer;
+
+        answer.appendChild(userLabel);
+        answer.appendChild(userValue);
+        answer.appendChild(document.createElement("br"));
+        answer.appendChild(correctLabel);
+        answer.appendChild(correctValue);
+
+        item.appendChild(word);
+        item.appendChild(answer);
+
+        if (
+            !result.correct &&
+            result.direction === "ar-en"
+        ) {
+
+            const analysis =
+                document.createElement("div");
+
+            analysis.className =
+                "error-analysis";
+
+            analysis.style.whiteSpace =
+                "pre-line";
+
+            analysis.textContent =
+                analyzeEnglish(
+                    result.userAnswer,
+                    result.correctAnswer
+                );
+
+            item.appendChild(analysis);
+        }
+
+        container.appendChild(item);
+    });
+}
+
+
+/* =========================================================
+   ENTER KEY
+========================================================= */
+
+answerInput.addEventListener(
+    "keydown",
+    event => {
+
+        if (event.key === "Enter") {
+
+            event.preventDefault();
+
+            submitAnswer();
+        }
+
+    }
+);
+
+
+/* =========================================================
+   STOP SPEECH WHEN LEAVING
+========================================================= */
+
+window.addEventListener(
+    "beforeunload",
+    () => {
+
+        stopCurrentAudio();
+
+        if ("speechSynthesis" in window) {
+
+            speechSynthesis.cancel();
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>
